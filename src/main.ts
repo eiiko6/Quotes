@@ -3,6 +3,7 @@ import './style.css'
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('container') as HTMLElement;
+  const quoteCard = document.getElementById('quote-card') as HTMLElement;
   const quoteText = document.getElementById('quote-text') as HTMLElement;
   const quoteAuthor = document.getElementById('quote-author') as HTMLElement;
 
@@ -26,13 +27,25 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
   async function updateContent() {
+    const backgroundContainer = document.getElementById('background')!;
     const newImageUrl = await fetchImage();
+    const nextImageUrl = await fetchImage();
     const quoteData = await fetchQuote();
+
     if (newImageUrl && quoteData) {
-      container.style.backgroundImage = `url(${newImageUrl})`;
-      quoteText.innerText = quoteData.quote;
-      quoteAuthor.innerText = quoteData.author; // Populate author's name
-  }
+        document.body.style.backgroundImage = `url(${newImageUrl})`; // Set new background image
+
+        container.style.animation = 'fadeOutBackground 0.5s forwards'; // Fade out current background
+        quoteCard.style.animation = 'slideOutQuoteCard 0.5s forwards'; // Slide out current quote card
+
+        setTimeout(() => {
+            container.style.backgroundImage = `url(${newImageUrl})`; // Update current background image
+            container.style.animation = 'fadeInBackground 0.3s forwards'; // Fade in new background
+            quoteText.innerText = quoteData.quote; // Update quote text
+            quoteAuthor.innerText = `${quoteData.author}`; // Update author text
+            quoteCard.style.animation = 'slideInQuoteCard 0.3s forwards'; // Slide in new quote card
+        },300); // Wait for fade-out and slide-out animations to complete
+    }
   }
 
   container.addEventListener('click', updateContent);
