@@ -27,9 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
   async function updateContent() {
-    const backgroundContainer = document.getElementById('background')!;
     const newImageUrl = await fetchImage();
-    const nextImageUrl = await fetchImage();
     const quoteData = await fetchQuote();
 
     if (newImageUrl && quoteData) {

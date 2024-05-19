@@ -86,6 +86,13 @@ body, html {
         margin: 10px;
         font-size: 30px;
     }
+
+    #quote-author {
+        font-size: 18px;
+        position: absolute;
+        bottom: 16px; /* Adjust vertical position as needed */
+        right: 5%; /* Position slightly to the right */
+    }
 }
 
 @keyframes slideOutQuoteCard {
